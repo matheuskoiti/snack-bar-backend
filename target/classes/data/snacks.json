@@ -1,0 +1,61 @@
+{
+  "snacks":
+  [
+    {
+      "name": "X-Bacon",
+      "ingredients": [
+        {
+          "name": "Bacon"
+        },
+        {
+          "name": "Hamburguer de carne"
+        },
+        {
+          "name": "Queijo"
+        }
+      ]
+    },
+    {
+      "name": "X-Burger",
+      "ingredients": [
+        {
+          "name": "Hamburguer de carne"
+        },
+        {
+          "name": "Queijo"
+        }
+      ]
+    },
+    {
+      "name": "X-Egg",
+      "ingredients": [
+        {
+          "name": "Ovo"
+        },
+        {
+          "name": "Hamburguer de carne"
+        },
+        {
+          "name": "Queijo"
+        }
+      ]
+    },
+    {
+      "name": "X-Egg Bacon",
+      "ingredients": [
+        {
+          "name": "Ovo"
+        },
+        {
+          "name": "Bacon"
+        },
+        {
+          "name": "Hamburguer de carne"
+        },
+        {
+          "name": "Queijo"
+        }
+      ]
+    }
+  ]
+}

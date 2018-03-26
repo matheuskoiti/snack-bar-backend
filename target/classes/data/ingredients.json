@@ -1,0 +1,25 @@
+{
+  "ingredients":
+  [
+    {
+      "name": "Alface",
+      "value": "0.4"
+    },
+    {
+      "name": "Bacon",
+      "value": "2"
+    },
+    {
+      "name": "Hamburguer de carne",
+      "value": "3"
+    },
+     {
+       "name": "Ovo",
+       "value": "0.8"
+     },
+     {
+       "name": "Queijo",
+       "value": "1.5"
+     }
+  ]
+}
