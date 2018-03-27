@@ -1,22 +1,13 @@
 package com.koiti.snackbar.service;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.koiti.snackbar.domain.Ingredient;
-import com.koiti.snackbar.domain.response.OrderValueResponse;
 import com.koiti.snackbar.domain.Snack;
-import com.koiti.snackbar.repository.IngredientRepository;
 import com.koiti.snackbar.repository.SnackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,7 +16,7 @@ public class SnackService {
     @Autowired
     SnackRepository snackRepository;
     @Autowired
-    IngredientRepository ingredientRepository;
+    IngredientService ingredientService;
     @Value("classpath:data/snacks.json")
     private Resource resourceSnacks;
 
@@ -48,8 +39,6 @@ public class SnackService {
         // Flag and counters for promotions
         boolean hasLettuce = false, hasBacon = false;
         int countMeat = 0, countCheese = 0;
-        int discountMeat = 0;
-        int discountCheese = 0;
 
         for (String quantity : quantities) {
             index++;
@@ -114,14 +103,12 @@ public class SnackService {
      * @return
      */
     public double getCustomSnacksValue(List<String> ingredients, List<String> quantities){
-        List<Ingredient> allIngredients = ingredientRepository.getIngredients();
+        List<Ingredient> allIngredients = ingredientService.getIngredients();
         int index = -1;
         double snackValue = 0;
         // Flag and counters for promotions
         boolean hasLettuce = false, hasBacon = false;
         int countMeat = 0, countCheese = 0;
-        int discountMeat = 0;
-        int discountCheese = 0;
 
         for (String quantity : quantities) {
             index++;
@@ -159,7 +146,7 @@ public class SnackService {
     }
 
     /**
-     * 
+     *
      * @param snackValue
      * @param hasBacon
      * @param hasLettuce
@@ -168,7 +155,7 @@ public class SnackService {
      * @return
      */
     private double usePromotion(double snackValue, boolean hasBacon, boolean hasLettuce, int countMeat, int countCheese) {
-        List<Ingredient> allIngredients = ingredientRepository.getIngredients();
+        List<Ingredient> allIngredients = ingredientService.getIngredients();
 
         // Verify if light promotion can be applied
         if (hasLettuce && !hasBacon) {
@@ -178,8 +165,8 @@ public class SnackService {
         // Verify and apply meat and cheese discounts
         int discountMeat = countMeat/3;
         int discountCheese = countCheese/3;
-        double meatPrice = ingredientRepository.getIngredientValue("Hamburguer de carne", allIngredients);
-        double cheesePrice = ingredientRepository.getIngredientValue("Queijo", allIngredients);
+        double meatPrice = ingredientService.getIngredientValue("Hamburguer de carne", allIngredients);
+        double cheesePrice = ingredientService.getIngredientValue("Queijo", allIngredients);
         snackValue = snackValue - (meatPrice*discountMeat);
         snackValue = snackValue - (cheesePrice*discountCheese);
 

@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.koiti.snackbar.domain.Ingredient;
 import com.koiti.snackbar.domain.Snack;
+import com.koiti.snackbar.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -22,7 +23,7 @@ public class SnackRepository {
     private Resource resourceSnacks;
 
     @Autowired
-    private IngredientRepository ingredientRepository;
+    private IngredientService ingredientService;
 
     /**
      * Read and parse snacks.json file that contains all snacks of the Snack Bar
@@ -33,7 +34,7 @@ public class SnackRepository {
         List<Snack> snacks = new ArrayList<Snack>();
         JsonObject jsonObject;
         Gson gson = new Gson();
-        List<Ingredient> ingredients = ingredientRepository.getIngredients();
+        List<Ingredient> ingredients = ingredientService.getIngredients();
 
         try {
             jsonObject = new JsonParser().parse(new FileReader(resourceSnacks.getFile())).getAsJsonObject();
@@ -41,7 +42,7 @@ public class SnackRepository {
             for(JsonElement snackItem : jsonObject.getAsJsonArray("snacks")){
                 Snack snack = gson.fromJson(snackItem.getAsJsonObject(), Snack.class);
                 for(Ingredient ingredient : snack.getIngredients()) {
-                    ingredient.setValue(ingredientRepository.getIngredientValue(ingredient.getName(), ingredients));
+                    ingredient.setValue(ingredientService.getIngredientValue(ingredient.getName(), ingredients));
                 }
                 snacks.add(snack);
             }

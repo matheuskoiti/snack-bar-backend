@@ -41,18 +41,4 @@ public class IngredientRepository {
             throw new RuntimeException("Error while reading/parsing ingredients.json file");
         }
     }
-
-    /**
-     * Find and return ingredient value at ingredients list
-     * @param ingredient
-     * @param ingredients
-     * @return value
-     */
-    public Double getIngredientValue(final String ingredient, List<Ingredient> ingredients ) {
-        Optional<Ingredient> ingredientWithValue = ingredients.stream().filter(i -> i.getName().equals(ingredient)).findFirst();
-        if (ingredientWithValue.isPresent()) {
-            return ingredientWithValue.get().getValue();
-        }
-        return null;
-    }
 }
