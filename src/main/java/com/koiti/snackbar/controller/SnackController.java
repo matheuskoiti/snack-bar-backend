@@ -19,10 +19,22 @@ public class SnackController {
     @Autowired
     SnackService snackService;
 
+    /**
+     * Get all snacks from the snack bar
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET)
     public List<Snack> getSnacks() {
         return snackService.getSnacks();
     }
+
+    /**
+     * Calculates the value of the snacks based on the list of snacks and their respective quantities
+     *
+     * @param snacks
+     * @param quantities
+     * @return the final value
+     */
     @RequestMapping(method = RequestMethod.GET,path = "/order/value")
     public double getSnacksValue(
             @RequestParam(name = "snacks")
@@ -34,6 +46,13 @@ public class SnackController {
         return snackService.getSnacksValue(snacks, quantities);
     }
 
+    /**
+     * Calculates the value of the custom snack based on the list of ingredients and their respective quantities
+     *
+     * @param ingredients
+     * @param quantities
+     * @return the final value
+     */
     @RequestMapping(method = RequestMethod.GET,path = "/custom/value")
     public double getCustomSnacksValue(
             @RequestParam(name = "ingredients")

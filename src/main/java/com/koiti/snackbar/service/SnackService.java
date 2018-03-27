@@ -15,13 +15,15 @@ public class SnackService {
 
     @Autowired
     SnackRepository snackRepository;
+
     @Autowired
     IngredientService ingredientService;
+
     @Value("classpath:data/snacks.json")
     private Resource resourceSnacks;
 
     /**
-     *
+     * Get all snacks from the snack bar
      * @return
      */
     public List<Snack> getSnacks() {
@@ -29,8 +31,11 @@ public class SnackService {
     }
 
     /**
+     * Calculates the value of the snacks based on the list of snacks and their respective quantities
      *
-     * @return
+     * @param snacks
+     * @param quantities
+     * @return the final value
      */
     public double getSnacksValue(List<String> snacks, List<String> quantities) {
         List<Snack> allSnacks = getSnacks();
@@ -97,10 +102,11 @@ public class SnackService {
     }
 
     /**
+     * Calculates the value of the custom snack based on the list of ingredients and their respective quantities
      *
      * @param ingredients
      * @param quantities
-     * @return
+     * @return the final value
      */
     public double getCustomSnacksValue(List<String> ingredients, List<String> quantities){
         List<Ingredient> allIngredients = ingredientService.getIngredients();
@@ -146,13 +152,14 @@ public class SnackService {
     }
 
     /**
+     * Apply the promotions
      *
      * @param snackValue
      * @param hasBacon
      * @param hasLettuce
      * @param countMeat
      * @param countCheese
-     * @return
+     * @return the final value with the discounts applied
      */
     private double usePromotion(double snackValue, boolean hasBacon, boolean hasLettuce, int countMeat, int countCheese) {
         List<Ingredient> allIngredients = ingredientService.getIngredients();

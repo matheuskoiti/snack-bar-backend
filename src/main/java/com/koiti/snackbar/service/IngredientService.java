@@ -1,9 +1,7 @@
 package com.koiti.snackbar.service;
 
 import com.koiti.snackbar.domain.Ingredient;
-import com.koiti.snackbar.domain.Snack;
 import com.koiti.snackbar.repository.IngredientRepository;
-import com.koiti.snackbar.repository.SnackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,15 +14,19 @@ public class IngredientService {
     @Autowired
     IngredientRepository ingredientRepository;
 
+    /**
+     * Get all ingredients from the snack bar
+     * @return
+     */
     public List<Ingredient> getIngredients() {
         return ingredientRepository.getIngredients();
     }
 
     /**
-     * Find and return ingredient value at ingredients list
+     * Find the ingredient name in the ingredient list
      * @param ingredient
      * @param ingredients
-     * @return value
+     * @return the ingredient value
      */
     public Double getIngredientValue(final String ingredient, List<Ingredient> ingredients ) {
         Optional<Ingredient> ingredientWithValue = ingredients.stream().filter(i -> i.getName().equals(ingredient)).findFirst();

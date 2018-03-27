@@ -19,6 +19,7 @@ import java.util.List;
 
 @Repository
 public class SnackRepository {
+
     @Value("classpath:data/snacks.json")
     private Resource resourceSnacks;
 
